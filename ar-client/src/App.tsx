@@ -6,6 +6,7 @@ import {
 } from '@zappar/zappar-react-three-fiber';
 // import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { Model as TShirtModel } from './assets/T-shirt_low_poly';
 
 // Import assets with proper type declarations
 const glb = new URL('./assets/low-poly_mannequinperson.glb', import.meta.url).href;
@@ -22,7 +23,7 @@ const Model = () => {
   gltf.scene.rotation.x = Math.PI / 2;
   gltf.scene.rotation.y = Math.PI / 2;
   // Scale the model down by 50%
-  gltf.scene.scale.set(0.5, 0.5, 0.5);
+  gltf.scene.scale.set(0.2, 0.2, 0.2);
 
   // useFrame(() => mixer.update(clock.getDelta()));
 
@@ -39,10 +40,15 @@ function App() {
           <ImageTracker targetImage={targetImage} {...({} as any)}>
             <React.Suspense fallback={null}>
               <Model />
+              <TShirtModel 
+                position={[0.12, -0.04, 0.59]} 
+                scale={[0.7, 0.7, 0.7]} 
+                rotation={[Math.PI / 2, Math.PI , 0]}
+              />
             </React.Suspense>
           </ImageTracker>
         </Suspense>
-        <directionalLight position={[2.5, 8, 5]} intensity={3} />
+        <directionalLight position={[5, 8, 5]} intensity={3} />
         <Loader />
       </ZapparCanvas>
       {/* <div

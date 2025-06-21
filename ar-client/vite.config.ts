@@ -15,7 +15,7 @@ export default defineConfig({
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.wasm']
   },
   server: {
-    allowedHosts: ['2e81-2604-3d08-2c84-4600-58e5-326d-78c6-3bf1.ngrok-free.app'],
+    allowedHosts: ['5135-134-87-188-4.ngrok-free.app'],
     port: 5173, // Default Vite port
     host: true, // Allow external connections
     // https: {
