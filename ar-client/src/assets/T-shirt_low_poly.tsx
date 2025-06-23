@@ -21,7 +21,9 @@ export function Model(props:any) {
           material={materials.Material}
           position={[0.878, 1.703, 1.51]}
           scale={2.692}
-        />
+        >
+          <meshStandardMaterial color={(props.color as string) || "red"} />
+        </mesh>
       </group>
     </group>
   );
