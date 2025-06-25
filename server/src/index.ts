@@ -10,10 +10,8 @@
     const app = express();
     const PORT = process.env.PORT || 3000;
     let currentOutfit: Prisma.OutfitUpdateInput = {
-      currentlyScanned: true,
       upper: null,
       lower: null,
-
     }
 
     app.use(cors());
@@ -52,6 +50,12 @@
     } else if (currentScanned.includes("Top")) {
       console.log("Top");
       currentOutfit.upper = currentScanned.split(" ")[1].toUpperCase() === "SHIRT" ? UpperTypes.SHIRT : UpperTypes.TSHIRT;
+    }
+    if (currentScanned.includes("Done")) {
+      currentOutfit = {
+        upper: null,
+        lower: null,
+      };
     }
     console.log(currentOutfit);
     if (currentOutfit.upper || currentOutfit.lower) {
