@@ -15,6 +15,14 @@ export const getFirstCurrentlyScannedOutfit = async () => {
   return outfit;
 };
 
+export const get10RecentlyScannedOutfits = async () => {
+  const outfits = await prisma.outfit.findMany({
+    orderBy: { createdAt: "desc" },
+    take: 10,
+  });
+  return outfits;
+}
+
 export const updateCurrentlyScannedOutfit = async (id: string, data: Prisma.OutfitUpdateInput) => {
   const outfit = await prisma.outfit.update({
     where: { id },
