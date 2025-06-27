@@ -19,8 +19,11 @@
   },
   "dependencies": {
     "@prisma/client": "^6.10.1",
+    "@types/cors": "^2.8.19",
     "@zappar/imagetraining": "^4.2.0-beta.1",
+    "cors": "^2.8.5",
     "express": "^5.1.0",
+    "serialport": "^13.0.0",
     "ts-node": "^10.9.2"
   }
 }
