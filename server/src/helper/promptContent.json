@@ -1,0 +1,4 @@
+{
+  "model": "gpt-4.1",
+  "input": "Given a list of outfits, analyze them together and generate:\n\n1. An overall fashion theme that connects all the outfits.\n2. A short paragraph describing the inspiration or mood these outfits convey collectively.\n\nFocus on creativity, aesthetic coherence, and emotional undertones. Here are the outfits:\n\n"
+}

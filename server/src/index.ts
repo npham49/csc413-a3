@@ -6,6 +6,7 @@
     import { Prisma, LowerTypes, PrismaClient, UpperTypes } from "@prisma/client";
 
     import { updateCurrentlyScannedOutfitHandler, get10RecentlyScannedOutfitsHandler } from "./handler/output.handler";
+    import { generateStories } from "./helper/generateText";
 
     const app = express();
     const PORT = process.env.PORT || 3000;
@@ -38,8 +39,11 @@
 
   app.get("/stories", async (_: Request, res: Response) => {
     const outfits = await get10RecentlyScannedOutfitsHandler();
-    res.json(outfits);
-    console.log("outfits", outfits);
+    // res.json(outfits);
+    // console.log("outfits", outfits);
+    const stories = await generateStories();
+    console.log("stories", stories);
+    res.json(stories);
   });
 
   // TODO: Add back when connecting to arduino

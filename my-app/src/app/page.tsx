@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 
-type Story = { upper: string; lower: string };
+// type Story = { upper: string; lower: string };
 
 export default function Home() {
   const [isDisplayed, setIsDisplayed] = useState(false);
-  const [stories, setStories] = useState<Story[]>([]);
+  const [stories, setStories] = useState("");
   const handleClick = async () => {
     console.log("clicked");
     const res = await fetch("http://localhost:3000/stories")
@@ -23,7 +23,7 @@ export default function Home() {
     <div>
       <h1>Hello World</h1>
       <Button onClick={handleClick}>Click here!</Button>
-      {isDisplayed && stories && <div>{stories[0].upper} {stories[0].lower}</div>}
+      {isDisplayed && stories && <div>{stories}</div>}
     </div>
   );
 }
