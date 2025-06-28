@@ -26,10 +26,19 @@ export function WomensShirt(props: any) {
                   ] as any
                 ).geometry
               }
-              material={materials["Oversized-sweater_FABRIC_1_FRONT_3915_010"]}
+              material={
+                !props.color
+                  ? materials["Oversized-sweater_FABRIC_1_FRONT_3915_010"]
+                  : undefined
+              }
               position={[-0.35, -138.342, 2.099]}
-            />
-            <meshStandardMaterial color={(props.color as string) || "red"} />
+            >
+              {props.color && (
+                <meshStandardMaterial
+                  color={(props.color as string) || "red"}
+                />
+              )}
+            </mesh>
           </group>
         </group>
       </group>
