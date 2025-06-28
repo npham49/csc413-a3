@@ -5,12 +5,13 @@
     import cors from "cors"
     import { Prisma, LowerTypes, PrismaClient, UpperTypes } from "@prisma/client";
 
-    import { updateCurrentlyScannedOutfitHandler, get10RecentlyScannedOutfitsHandler } from "./handler/output.handler";
+    import { updateCurrentlyScannedOutfitHandler, get10RecentlyScannedOutfitsHandler, submitOutfitHandler } from "./handler/output.handler";
     import { generateStories } from "./helper/generateText";
 
     const app = express();
     const PORT = process.env.PORT || 3000;
     let currentOutfit: Prisma.OutfitUpdateInput = {
+      id: "",
       upper: null,
       lower: null,
       upperColor: null,
@@ -55,6 +56,7 @@
       currentOutfit.upper = currentScanned.split(" ")[1].toUpperCase() === "SHIRT" ? UpperTypes.SHIRT : UpperTypes.TSHIRT;
     }
     if (currentScanned.includes("Done")) {
+      submitOutfitHandler(currentOutfit.id as string);
       currentOutfit = {
         upper: null,
         lower: null,
