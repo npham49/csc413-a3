@@ -17,8 +17,13 @@ export function Skirt(props: any) {
   return (
     <group {...props} dispose={null}>
       <group scale={0.001}>
-        <mesh geometry={(nodes['18_Skirt_18_Skirt_0'] as any).geometry} material={materials['18_Skirt']} scale={10} />
-        <meshStandardMaterial color={(props.color as string) || "red"} />
+        <mesh
+          geometry={(nodes['18_Skirt_18_Skirt_0'] as any).geometry}
+          material={!props.color ? materials['18_Skirt'] : undefined}
+          scale={10}
+        >
+          {props.color && <meshStandardMaterial color={(props.color as string)} />}
+        </mesh>
       </group>
     </group>
   )

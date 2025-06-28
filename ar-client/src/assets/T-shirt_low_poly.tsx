@@ -11,18 +11,20 @@ import { useGLTF } from "@react-three/drei";
 
 const glb = new URL("./t-shirt_low_poly.glb", import.meta.url).href;
 
-export function Model(props:any) {
+export function Model(props: any) {
   const { nodes, materials } = useGLTF(glb);
   return (
     <group {...props} dispose={null}>
       <group scale={0.01}>
         <mesh
           geometry={(nodes["T-Shirt_Material_0"] as any).geometry}
-          material={materials.Material}
+          material={!props.color ? materials.Material : undefined}
           position={[0.878, 1.703, 1.51]}
           scale={2.692}
         >
-          <meshStandardMaterial color={(props.color as string) || "red"} />
+          {props.color && (
+            <meshStandardMaterial color={(props.color as string) || "red"} />
+          )}
         </mesh>
       </group>
     </group>

@@ -16,8 +16,14 @@ export function Pants(props: any) {
   return (
     <group {...props} dispose={null}>
       <group position={[-2.619, 35.69, 1.75]} rotation={[-Math.PI / 2, 0, 0]} scale={1.038}>
-        <mesh geometry={(nodes['pants_03_-_Default_0'] as any).geometry} material={materials['03_-_Default']} position={[2.414, 2.357, 15.914]} rotation={[0.305, 0, 0]} />
-        <meshStandardMaterial color={(props.color as string) || "red"} />
+        <mesh
+          geometry={(nodes['pants_03_-_Default_0'] as any).geometry}
+          material={!props.color ? materials['03_-_Default'] : undefined}
+          position={[2.414, 2.357, 15.914]}
+          rotation={[0.305, 0, 0]}
+        >
+          {props.color && <meshStandardMaterial color={(props.color as string)} />}
+        </mesh>
       </group>
     </group>
   )

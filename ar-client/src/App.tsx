@@ -52,6 +52,13 @@ function App() {
   const [outfit, setOutfit] = useState<Outfit | null>(null);
 
   useEffect(() => {
+    const fetchOutfit = async () => {
+      const { data, error } = await supabase.from("Outfit").select("*").eq("currentlyScanned", true);
+      if (error) console.error("ERROR FETCHING OUTFIT:", error);
+      else setOutfit(data[0] as Outfit);
+      console.log("OUTFIT DATA:", data, outfit);
+    };
+    fetchOutfit();
     const channelA = supabase
       .channel("schema-db-changes")
       .on(
