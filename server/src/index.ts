@@ -74,7 +74,6 @@
   //   currentOutfit = await updateCurrentlyScannedOutfitHandler(currentOutfit);
   //   console.log(currentOutfit);
   // }
-
   // updateCurrentlyScannedOutfit(currentOutfit);
 
     
