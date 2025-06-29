@@ -18,7 +18,7 @@ import { Pants } from "./assets/Man_pants";
 
 // Import assets with proper type declarations
 const glb = new URL("./assets/female_mannequin.glb", import.meta.url).href;
-const targetImage = new URL("./assets/CardplusCompasslogo.zpt", import.meta.url)
+const targetImage = new URL("./assets/drawing.zpt", import.meta.url)
   .href;
 
 // let action: THREE.AnimationAction;
