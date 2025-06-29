@@ -42,15 +42,17 @@ void loop() {
       Serial.print("\nTag Number: ");
       Serial.print(tagID);
       Serial.println();
+      Serial.print(reader);
       if (tagID == 2713759238 || tagID == 2976165638) {
-        Serial.println("Top: Shirt");
+        Serial.print(" Top: Shirt");
       } else if (tagID == 4056264198 || tagID == 1902292742) {
-        Serial.println("Top: TShirt");
+        Serial.print(" Top: TShirt");
       } else if (tagID == 2439032582 || tagID == 3776032262) {
-        Serial.println("Bottom: Pants");
+        Serial.print(" Bottom: Pants");
       } else if (tagID == 22916870 || tagID == 566537734) {
-        Serial.println("Bottom: Skirt");
+        Serial.print(" Bottom: Skirt");
       } 
+      Serial.println();
       mfrc522[reader].PICC_HaltA();      // Halt the card
       mfrc522[reader].PCD_StopCrypto1(); // Stop encryption
     }

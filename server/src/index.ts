@@ -5,13 +5,18 @@
     import cors from "cors"
     import { Prisma, LowerTypes, PrismaClient, UpperTypes } from "@prisma/client";
 
-    import { updateCurrentlyScannedOutfitHandler } from "./handler/output.handler";
+    import { updateCurrentlyScannedOutfitHandler, get10RecentlyScannedOutfitsHandler, submitOutfitHandler } from "./handler/output.handler";
+    import { generateStories } from "./helper/generateText";
 
     const app = express();
     const PORT = process.env.PORT || 3000;
     let currentOutfit: Prisma.OutfitUpdateInput = {
+      id: "",
       upper: null,
       lower: null,
+      upperColor: null,
+      lowerColor: null,
+
     }
 
     app.use(cors());
@@ -24,18 +29,17 @@
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });
-  // app.get("/events", (req, res) => {
-  //   res.setHeader("Content-Type", "text/event-stream");
-  //   res.setHeader("Cache-Control", "no-cache");
-  //   res.setHeader("Connection", "keep-alive");
-  //   res.flushHeaders();
 
-  //   clients.push(res);
-  //   req.on("close", () => {
-  //     clients = clients.filter((c) => c !== res);
-  //   });
-  // });
+  app.get("/stories", async (_: Request, res: Response) => {
+    const outfits = await get10RecentlyScannedOutfitsHandler();
+    // res.json(outfits);
+    // console.log("outfits", outfits);
+    const stories = await generateStories(outfits as any);
+    console.log("stories", stories);
+    res.json(stories);
+  });
 
+  // TODO: Add back when connecting to arduino
   // Replace with your correct serial port path
   const arduinoPort = new SerialPort({ path: "/dev/cu.usbmodem11201", baudRate: 9600 }); // ✅ Fixed
   const parser = arduinoPort.pipe(new ReadlineParser({ delimiter: "\n" }));
@@ -52,6 +56,7 @@
       currentOutfit.upper = currentScanned.split(" ")[1].toUpperCase() === "SHIRT" ? UpperTypes.SHIRT : UpperTypes.TSHIRT;
     }
     if (currentScanned.includes("Done")) {
+      submitOutfitHandler(currentOutfit.id as string);
       currentOutfit = {
         upper: null,
         lower: null,
@@ -63,5 +68,12 @@
     }
     console.log(currentOutfit);
   });
+
+  // TODO: Remove this when connecting to arduino
+  // async function updateCurrentlyScannedOutfit(currentOutfit: Prisma.OutfitUpdateInput) {
+  //   currentOutfit = await updateCurrentlyScannedOutfitHandler(currentOutfit);
+  //   console.log(currentOutfit);
+  // }
+  // updateCurrentlyScannedOutfit(currentOutfit);
 
     

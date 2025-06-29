@@ -4,6 +4,7 @@ import {
   getFirstCurrentlyScannedOutfit,
   submitOutfit,
   updateCurrentlyScannedOutfit,
+  get10RecentlyScannedOutfits,
 } from "../service/output.service";
 
 export const updateCurrentlyScannedOutfitHandler = async (
@@ -39,4 +40,9 @@ export const submitOutfitHandler = async (id: string) => {
 export const createOutfitHandler = async (data: Prisma.OutfitCreateInput) => {
   const outfit = await createNewOutfit(data);
   return outfit;
+};
+
+export const get10RecentlyScannedOutfitsHandler = async () => {
+  const outfits = await get10RecentlyScannedOutfits();
+  return outfits;
 };
