@@ -11,7 +11,6 @@
     const app = express();
     const PORT = process.env.PORT || 3000;
     let currentOutfit: Prisma.OutfitUpdateInput = {
-      id: "",
       upper: null,
       lower: null,
       upperColor: null,
@@ -50,23 +49,28 @@
     let currentScanned: string = line.trim();
     if (currentScanned.includes("Bottom")) {
       console.log("Bottom");
-      currentOutfit.lower = currentScanned.split(" ")[1].toUpperCase() === "PANTS" ? LowerTypes.PANTS : LowerTypes.BLOUSE;
+      currentOutfit.lower = currentScanned.split(" ")[2].toUpperCase() === "PANTS" ? LowerTypes.PANTS : LowerTypes.BLOUSE;
     } else if (currentScanned.includes("Top")) {
       console.log("Top");
-      currentOutfit.upper = currentScanned.split(" ")[1].toUpperCase() === "SHIRT" ? UpperTypes.SHIRT : UpperTypes.TSHIRT;
-    }
-    if (currentScanned.includes("Done")) {
-      submitOutfitHandler(currentOutfit.id as string);
+      currentOutfit.upper = currentScanned.split(" ")[2].toUpperCase() === "SHIRT" ? UpperTypes.SHIRT : UpperTypes.TSHIRT;
+    } else if (currentScanned.includes("0 Color")) {
+      currentOutfit.upperColor = currentScanned.split(" ")[2].toUpperCase();
+    } else if (currentScanned.includes("1 Color")) {
+      currentOutfit.lowerColor = currentScanned.split(" ")[2].toUpperCase();
+    } else if (currentScanned.includes("Done")) {
+      currentOutfit = await submitOutfitHandler(currentOutfit.id as string);
+      console.log(currentOutfit);
       currentOutfit = {
         upper: null,
         lower: null,
+        upperColor: null,
+        lowerColor: null,
       };
     }
-    console.log(currentOutfit);
-    if (currentOutfit.upper || currentOutfit.lower) {
+    if (currentOutfit.upper || currentOutfit.lower || currentOutfit.upperColor || currentOutfit.lowerColor) {
       currentOutfit =await updateCurrentlyScannedOutfitHandler(currentOutfit);
     }
-    console.log(currentOutfit);
+    // console.log(currentOutfit);
   });
 
   // TODO: Remove this when connecting to arduino
